@@ -36,10 +36,13 @@ def fit_circle(x, y):
 
     # plot the circle for debugging purpose
     # plot_circle(x_m,y_m,r_m,x,y)
-    return circ_param
+    return [x_m, y_m, r_m]
 
 
-def find_circles(src):
+def find_circles(src) -> np.ndarray:
+    """Function finds circles on the image\n
+    Function returns 2D array with circles in the form of [x,y,R] parameters"""
+
     # Convert image to gray and blur it
     src_gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
     src_gray = cv.blur(src_gray, (3, 3))
@@ -94,7 +97,7 @@ def find_circles(src):
                 x = np.r_[x]
                 y = np.r_[y]
                 circle_param = fit_circle(x, y)
-                circle_list.append(circle_param[0][:])
+                circle_list.append(circle_param)
                 # show fitted circle - for debug purposes
                 # circle_fit.plot_circle(circle_param[0][0],circle_param[0][1],circle_param[0][2],x,y)
     # print contours with circles

@@ -11,7 +11,7 @@ catalog_names = [
     "04_S1_6",
 ]
 
-
+print("Filename\tCurvature [1/pix]")
 for i in range(1, len(catalog_names)):
     # Load source image
     img_path = "Example_images\\" + catalog_names[i][:] + "\\"
@@ -24,12 +24,16 @@ for i in range(1, len(catalog_names)):
             if src is None:
                 print("Could not open or find the image:", img_file)
                 exit(0)
-            print("Processing of: " + img_file)
-            circlesInPhoto = circle_fit.find_circles(src)
-            Result_file = open(
+            # print("Processing of: " + img_file)
+            circles_in_photo = circle_fit.find_circles(src)
+            result_file = open(
                 result_path + os.path.splitext(img_file)[0] + ".txt", "w+"
             )
             # save found marker's locations into the files
-            Result_file.write(img_file + "\n")
-            np.savetxt(Result_file, circlesInPhoto, fmt="%.4f", delimiter=",")
-            Result_file.close()
+            result_file.write(img_file + "\n")
+            np.savetxt(result_file, circles_in_photo, fmt="%.4f", delimiter=",")
+            x = circles_in_photo[:, 0]
+            y = circles_in_photo[:, 1]
+            sample_fitted_circle = circle_fit.fit_circle(x, y)
+            print(img_file + "\t" + str(1 / sample_fitted_circle[2]))
+            result_file.close()
