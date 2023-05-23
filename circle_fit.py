@@ -112,3 +112,50 @@ def find_circles(src) -> np.ndarray:
     # cv.imshow('Contours', copy_src)
     # cv.waitKey()
     return circ_stack_2
+
+
+def find_sample_edges(src, threshold_value):
+    """'function is working on the image without markers and their surroundings (only "edges" of the sample are present)"""
+    R_src = src.copy()
+    # BGR coding
+    (B, G, R) = cv.split(R_src)
+    # taking only red component of the image
+    copy_src = R.copy()
+    copy_src = cv.blur(copy_src, (3, 3))
+
+    ret, threshold_img = cv.threshold(copy_src, threshold_value, 255, cv.THRESH_BINARY)
+
+    grad_x = cv.Sobel(threshold_img, -1, 1, 0)
+    # Find contours
+    contours, hierarchy = cv.findContours(grad_x, cv.RETR_CCOMP, cv.CHAIN_APPROX_NONE)
+
+    # get edges
+    contour_list = []
+    for contour in contours:
+        moments = cv.moments(contour)
+
+        # filter out short contours
+        if (contour[:, :, 1].max() - contour[:, :, 1].min() < 100) or (
+            moments["mu20"] == 0
+        ):
+            continue
+        param = moments["mu02"] / moments["mu20"]
+        area = cv.contourArea(contour)
+        # check if is a circle
+        if (param > 0.98) & (area > 100):
+            contour_list.append(contour)
+            cv.drawContours(R_src, contour_list, -1, (255, 0, 0), 2)
+            x = []
+            y = []
+            for t in contour:
+                x.append(t[0][0])
+                y.append(t[0][1])
+            x = np.r_[x]
+            y = np.r_[y]
+
+    # take all contours and join them into single one
+    edge_array = np.squeeze(contour_list[0])
+    for i in range(1, len(contour_list)):
+        temp_array = np.squeeze(contour_list[i])
+        edge_array = np.vstack((edge_array, temp_array))
+    return edge_array
