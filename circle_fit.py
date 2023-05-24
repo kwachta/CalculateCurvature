@@ -39,12 +39,12 @@ def fit_circle(x, y):
     return [x_m, y_m, r_m]
 
 
-def find_circles(src) -> np.ndarray:
-    """Function finds circles on the image\n
+def find_markers(src_img) -> np.ndarray:
+    """Function finds markers on the image\n
     Function returns 2D array with circles in the form of [x,y,R] parameters"""
 
     # Convert image to gray and blur it
-    src_gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
+    src_gray = cv.cvtColor(src_img, cv.COLOR_BGR2GRAY)
     src_gray = cv.blur(src_gray, (3, 3))
 
     # thresholding
@@ -66,7 +66,7 @@ def find_circles(src) -> np.ndarray:
     canny_output = cv.Canny(threshold_img, 100, 200)
 
     copy_gray = src_gray.copy()
-    copy_src = src.copy()
+    copy_src = src_img.copy()
 
     # Find contours
     contours, hierarchy = cv.findContours(
@@ -104,26 +104,25 @@ def find_circles(src) -> np.ndarray:
     circ_stack = np.vstack(circle_list)
     circ_stack_2 = np.squeeze(circ_stack)
     circ_stack_2 = circ_stack_2[np.argsort(circ_stack_2[:, 1])]
-    # write image to file
-    # if not cv.imwrite('output_test.jpg', copy_src):
-    #        raise Exception("Could not write image")
-
-    # Show gray pictures with detected circles
-    # cv.imshow('Contours', copy_src)
-    # cv.waitKey()
+    # # write image to file
+    if not cv.imwrite("output_test.jpg", copy_src):
+        raise Exception("Could not write image")
+    # # Show grayscale image with detected circles
+    cv.imshow("Contours", copy_src)
+    cv.waitKey()
     return circ_stack_2
 
 
-def find_sample_edges(src, threshold_value):
+def find_sample_edges(src_img, threshold):
     """'function is working on the image without markers and their surroundings (only "edges" of the sample are present)"""
-    R_src = src.copy()
+    R_src = src_img.copy()
     # BGR coding
     (B, G, R) = cv.split(R_src)
     # taking only red component of the image
     copy_src = R.copy()
     copy_src = cv.blur(copy_src, (3, 3))
 
-    ret, threshold_img = cv.threshold(copy_src, threshold_value, 255, cv.THRESH_BINARY)
+    ret, threshold_img = cv.threshold(copy_src, threshold, 255, cv.THRESH_BINARY)
 
     grad_x = cv.Sobel(threshold_img, -1, 1, 0)
     # Find contours

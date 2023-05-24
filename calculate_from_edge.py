@@ -57,7 +57,7 @@ for i in range(0, len(catalog_names)):
 
             # remove markers and their surrounding from the photo
             srcWithoutCircles = src.copy()
-            circlesInPhoto = circle_fit.find_circles(src)
+            circlesInPhoto = circle_fit.find_markers(src)
             for circle_param in circlesInPhoto:
                 x_c_0 = int(circle_param[0]) - int(circle_param[2]) - 25
                 x_c_1 = int(circle_param[0]) + int(circle_param[2]) + 25

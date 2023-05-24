@@ -25,7 +25,7 @@ for i in range(1, len(catalog_names)):
             if src is None:
                 print("Could not open or find the image:", img_file)
                 exit(0)
-            circles_in_photo = circle_fit.find_circles(src)
+            circles_in_photo = circle_fit.find_markers(src)
             if write_to_file:
                 result_file = open(
                     img_path + os.path.splitext(img_file)[0] + ".txt", "w+"
