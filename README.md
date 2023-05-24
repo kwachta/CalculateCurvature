@@ -8,7 +8,7 @@ This program is used to find the curvature of the thermoplastic composite sample
 
 The program detects the curvature of the sample using one of the approaches: either markers with concentric circles attached to the surface, or from the edge of the material.
 
-The main motivation of creating this project was investigation of sample curvature variations along with temperature to find so-called stress-free temperature of the material. Parameter is importatn for the proper manufacturing of this type of composite. Detection method is similiar to one presented in paper (Péron, M., et al. <i> Measurement and prediction of residual strains and stresses during the cooling of a glass fibre reinforced PA66 matrix composite</i>. Compos. Part A Appl. Sci. Manuf. 2020, 137, 106039, doi:10.1016/j.compositesa.2020.106039.
+The main motivation of creating this project was investigation of sample curvature variations along with temperature to find so-called stress-free temperature of the material. Parameter is importatn for the proper manufacturing of this type of composite. Detection method is similiar to one presented in paper (Péron, M., et al. <i> Measurement and prediction of residual strains and stresses during the cooling of a glass fibre reinforced PA66 matrix composite</i>. Compos. Part A Appl. Sci. Manuf. 2020, 137, 106039, doi:[10.1016/j.compositesa.2020.106039](http://doi.org/10.1016/j.compositesa.2020.106039).
 
 ## Usage
 
