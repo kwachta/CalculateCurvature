@@ -1,4 +1,4 @@
-# CalculateCurvate
+# curvature-caluclator
 
 ## Description
 
