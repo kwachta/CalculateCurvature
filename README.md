@@ -4,7 +4,7 @@
 
 This program is used to find the curvature of the thermoplastic composite samples, using image like this:
 
-<center><img src="./example_images/04_S1_6/077_04_S1_6.jpg" height="400" /></center>
+<p align="center"><img src="./example_images/04_S1_6/077_04_S1_6.jpg" height="400" /></p>
 
 The program detects the curvature of the sample using one of the approaches: either markers with concentric circles attached to the surface, or from the edge of the material.
 
@@ -16,11 +16,11 @@ In the first step, the location of points on the length of the samples has to be
 
 `find_markers(src_img)` finds circles present in the markers of the markers on the source image (`src_img`). Function returns array of location of circles present on the markers `(x,y,R)`.
 
-<center><img src="./assets/detected_markers.jpg" height="400" /></center>
+<p align="center"><img src="./assets/detected_markers.jpg" height="400" /></p>
 
 `find_sample_edges(src, threshold)` finds the edge of the sample on the source image (`src_img`). Function has second argument `threshold`, which is value of pixel intesity used to binarize the image. The function returns the array with pixels along the edge.
 
-<center><img src="./assets/detected_edge.jpeg" height="400" /></center>
+<p align="center"><img src="./assets/detected_edge.jpeg" height="400" /></p>
 
 Later on, based on pixels locations the final circle corresponding the sample deformation can be fitted.
 
